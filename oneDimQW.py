@@ -38,6 +38,10 @@ class one_dim_QW:
             self.state = self.U_ @ self.state
             self.data = np.vstack((self.data,self.get_prob()))
         return self.data
+    
+    def momentum_U(self):
+        T = np.diag(np.exp(-1j*2*np.pi/self.dim * (np.arange(0,self.dim)-self.dim//2)))
+        return (np.kron(T,op.s_p)+np.kron(op.dag(T),op.s_m)) @ np.kron(np.eye(self.dim),self.C_) 
 
 class ss_one_dim_QW(one_dim_QW):
     def Evolution(self,**kwargs):
