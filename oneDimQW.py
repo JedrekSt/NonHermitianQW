@@ -48,16 +48,17 @@ class ss_one_dim_QW(one_dim_QW):
         n = kwargs.get('n',[0,1,0])
         self.th1 = kwargs.get('th1',np.pi/2)
         self.th2 = kwargs.get('th2',np.pi/2)
-        self.C_ = lambda th : expm(- 1j * expm(n_ * S_  for n_,S_ in zip(n,op.S) ) * th / 2)
+        self.C1 = expm(- 1j * sum(n_ * S_  for n_,S_ in zip(n,op.S) ) * self.th1 / 2)
+        self.C2 = expm(- 1j * sum(n_ * S_  for n_,S_ in zip(n,op.S) ) * self.th1 / 2)
         self.Sr = np.kron(np.eye(self.dim),op.s_m) + np.kron(op.circ_shift(self.dim,k=1),op.s_p)
         self.Sl = np.kron(np.eye(self.dim),op.s_p) + np.kron(op.circ_shift(self.dim,k=-1),op.s_m)
-        self.U_ = self.Sr @ np.kron(np.eye(self.dim),self.C_(self.th1)) @ self.Sl @ np.kron(np.eye(self.dim),self.C_(self.th2))
+        self.U_ = self.Sr @ np.kron(np.eye(self.dim),self.C1) @ self.Sl @ np.kron(np.eye(self.dim),self.C2)
 
     def momentum_U(self):
         T = np.diag(np.exp(-1j*2*np.pi/self.dim * (np.arange(0,self.dim))))
         right = np.kron(np.eye(self.dim),op.s_m) + np.kron(T,op.s_p)
         left = np.kron(np.eye(self.dim),op.s_p) + np.kron(op.dag(T),op.s_m)
-        return right @ np.kron(np.eye(self.dim),self.C_(self.th1)) @ left @ np.kron(np.eye(self.dim),self.C_(self.th2))
+        return right @ np.kron(np.eye(self.dim),self.C1) @ left @ np.kron(np.eye(self.dim),self.C2)
 
     def eigenvals(self):
         E = np.angle(eigvals(self.momentum_U()))
