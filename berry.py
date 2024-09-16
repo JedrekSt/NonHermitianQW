@@ -20,6 +20,6 @@ class BerryPhase:
     def vector_representation(self,model):
         _,Ut = eig(model.momentum_U())
         Ut = np.hstack(tuple(Ut[2*i : 2*i+2,2*i : 2*i+2] for i in range(self.dim)))
-        Ut = Ut 
+        Ut = Ut / np.sqrt(np.diag(op.dag(Ut)@Ut))
         ans = lambda ax: np.vstack(tuple( np.diag(op.dag(Ut[:,ax::2]) @ S_ @ Ut[:,ax::2]) for S_ in op.S))
         return ans(0),ans(1)
