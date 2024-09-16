@@ -48,13 +48,13 @@ class ss_one_dim_QW(one_dim_QW):
         n = kwargs.get('n',[0,1,0])
         self.th1 = kwargs.get('th1',np.pi/2)
         self.th2 = kwargs.get('th2',np.pi/2)
-        self.C_ = lambda th : expm(- 1j * sum(n[i]*op.S[i] for i in range(len(n))) * th / 2)
+        self.C_ = lambda th : expm(- 1j * expm(n_ * S_  for n_,S_ in zip(n,op.S) ) * th / 2)
         self.Sr = np.kron(np.eye(self.dim),op.s_m) + np.kron(op.circ_shift(self.dim,k=1),op.s_p)
         self.Sl = np.kron(np.eye(self.dim),op.s_p) + np.kron(op.circ_shift(self.dim,k=-1),op.s_m)
         self.U_ = self.Sr @ np.kron(np.eye(self.dim),self.C_(self.th1)) @ self.Sl @ np.kron(np.eye(self.dim),self.C_(self.th2))
 
     def momentum_U(self):
-        T = np.diag(np.exp(-1j*2*np.pi/self.dim * np.arange(0,self.dim)))
+        T = np.diag(np.exp(-1j*2*np.pi/self.dim * (np.arange(0,self.dim))))
         right = np.kron(np.eye(self.dim),op.s_m) + np.kron(T,op.s_p)
         left = np.kron(np.eye(self.dim),op.s_p) + np.kron(op.dag(T),op.s_m)
         return right @ np.kron(np.eye(self.dim),self.C_(self.th1)) @ left @ np.kron(np.eye(self.dim),self.C_(self.th2))
@@ -77,7 +77,7 @@ class nonUnitary_QW(ss_one_dim_QW):
         self.U_ = self.Sr @ self.G_ @ np.kron(np.eye(self.dim),self.C_(self.th1)) @ self.Sl @ self.G_p @ np.kron(np.eye(self.dim),self.C_(self.th2))
 
     def momentum_U(self):
-        T = np.diag(np.exp(-1j*2*np.pi/self.dim * np.arange(0,self.dim)))
+        T = np.diag(np.exp(-1j*2*np.pi/self.dim * (np.arange(0,self.dim)-self.dim//2)))
         right = np.kron(np.eye(self.dim),op.s_m) + np.kron(T,op.s_p)
         left = np.kron(np.eye(self.dim),op.s_p) + np.kron(op.dag(T),op.s_m)
         return right @ self.G_ @ np.kron(np.eye(self.dim),self.C_(self.th1)) @ left @ self.G_p @ np.kron(np.eye(self.dim),self.C_(self.th2))
