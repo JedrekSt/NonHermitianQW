@@ -83,3 +83,5 @@ class nonUnitary_QW(ss_one_dim_QW):
         right = np.kron(np.eye(self.dim),op.s_m) + np.kron(T,op.s_p)
         left = np.kron(np.eye(self.dim),op.s_p) + np.kron(op.dag(T),op.s_m)
         return right @ self.G_ @ np.kron(np.eye(self.dim),self.C1) @ left @ self.G_p @ np.kron(np.eye(self.dim),self.C2)
+
+
