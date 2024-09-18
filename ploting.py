@@ -41,11 +41,12 @@ def berry_bloch_phase(th1,th2,ns,th_1,th_2,data_ans):
     ax1.set_yticklabels([])
     ax1.set_zticklabels([])
 
-    cax = ax2.contourf(th_1,th_2,data_ans[0]/np.pi,cmap = "inferno")
+    cax = ax2.contourf(th_1,th_2,data_ans/np.pi,cmap = "viridis")
     fig.colorbar(cax)
     ax2.set_xlabel(r"$\theta_{2}$")
     ax2.set_ylabel(r"$\theta_{1}$")
     ax2.set_title("winding number for single step QW")
     ax2.scatter([th1],[th2],color="blue", alpha = 1)
 
-    plt.show()
+
+    return ax1,ax2
