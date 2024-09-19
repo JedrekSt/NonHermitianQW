@@ -10,12 +10,14 @@ class two_dim_QW:
         self.Evolution(x_coin_dict,y_coin_dict)
         self.state = self.initial_state(**kwargs)
 
-    def Coin(self,th,n):
+    def Coin(self,**kwargs):
+        n = kwargs.get('n')
+        th = kwargs.get('th')
         return expm(- 1j * sum(n[i]*op.S[i] for i in range(len(n))) * th / 2)
     
     def Evolution(self,x_coin_dict,y_coin_dict):
-        self.Cx = self.Coin(x_coin_dict['th'],x_coin_dict['n'])
-        self.Cy = self.Coin(y_coin_dict['th'],y_coin_dict['n'])
+        self.Cx = self.Coin(**x_coin_dict)
+        self.Cy = self.Coin(**y_coin_dict)
 
         self.Sx = self.Step(axis = 'x')
         self.Sy = self.Step(axis = 'y')
