@@ -47,7 +47,7 @@ class single_coin_two_dim_QW:
         state[kwargs.get('x0',self.dim_x//2)] = 1
         state2 = np.zeros((self.dim_y,))
         state2[kwargs.get('y0',self.dim_y//2)] = 1
-        state_c = np.array([kwargs.get('a',1.0),kwargs.get('b',1.0)])
+        state_c = np.array([kwargs.get('a',1.0),kwargs.get('b',1.0j)])
         state_c = state_c / np.sqrt(op.dag(state_c) @ state_c)
         return op.n_fold_kron([state,state2,state_c])
     
