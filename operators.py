@@ -44,3 +44,7 @@ class op:
         single_vec = np.array([om ** n for n in range(dim)]).reshape(-1,1)
         return np.hstack(tuple(single_vec**m for m in range(dim)))/np.sqrt(dim)
     
+    @staticmethod
+    def proj(dim,x):
+        return np.diag(np.array([0 if i != x else 1 for i in range(dim)]))
+    
