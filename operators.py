@@ -14,6 +14,17 @@ class op:
         [0,-1]
     ])
 
+    Id = np.eye(2)
+
+    sp = np.array([
+        [0,0],
+        [1,0]
+    ])
+    sm = np.array([
+        [0,1],
+        [0,0]
+    ])
+
     s_p = (np.eye(2) + sz)/2 
     s_m = (np.eye(2) - sz)/2 
     
