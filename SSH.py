@@ -1,7 +1,3 @@
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath("NonHermitianQW"))))
-
 import numpy as np
 from matplotlib import pyplot as plt
 from numpy.linalg import eig
@@ -11,9 +7,9 @@ from abc import ABC, abstractmethod
 
 class SSH(ABC):
 
-    def __init__(self,dim,chain_dict):
+    def __init__(self,dim,**kwargs):
         self.dim = dim
-        self.H_ = self.Hamiltonian(**chain_dict)
+        self.H_ = self.Hamiltonian(**kwargs)
 
     @abstractmethod
     def Hamiltonian(self):
@@ -42,8 +38,8 @@ class SSH(ABC):
 class BulkSSH(SSH):
 
     def Hamiltonian(self,**kwargs):
-        self.u = kwargs.get("u")
-        self.v = kwargs.get("v")
+        self.u = kwargs.get("u",0.01)
+        self.v = kwargs.get("v",0.02)
         left = np.kron(np.eye(self.dim),op.sp) + np.kron(np.eye(self.dim),op.sm)
         right = np.kron(op.circ_shift(self.dim,k=1),op.sp) + np.kron(op.circ_shift(self.dim,k=-1),op.sm)
         return self.u * left + self.v * right
@@ -76,8 +72,8 @@ class BulkSSH(SSH):
 class BoundSSH(SSH):
 
     def Hamiltonian(self,**kwargs):
-        self.u = kwargs.get("u")
-        self.v = kwargs.get("v")
+        self.u = kwargs.get("u",0.01)
+        self.v = kwargs.get("v",0.02)
         left = np.kron(np.eye(self.dim),op.sp) + np.kron(np.eye(self.dim),op.sm)
         right = np.kron(np.eye(self.dim,k=1),op.sp) + np.kron(np.eye(self.dim,k=-1),op.sm)
         return self.u * left + self.v * right
