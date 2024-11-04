@@ -59,7 +59,20 @@ class BulkSSH(SSH):
         for i in range(self.dim):
             E.append(eig(Hk[2*i : 2*i+2, 2*i : 2*i+2])[0])
         return np.array(E).T
-
+    
+    def calc_winding_num(self,a):
+        Hk = self.get_momentum()
+        prod = 1.
+        dim2 = self.dim*2
+        k = 0
+        U1 = eig(Hk[2*k:2*(k+1),2*k:2*(k+1)])[1][:,a]
+        for k in range(1,self.dim):
+            U2 = eig(Hk[(2*k)%dim2:2*k%dim2+2,(2*k)%dim2:2*k%dim2+2])[1][:,a]
+            prod *= np.conj(U1).T @ U2
+            U1 = U2
+        return np.abs(np.angle(prod)) / np.pi
+        #return np.prod([np.conj(U[2*k:2*(k+1),2*k+a]).T @ U[(2*(k+1) %(dim2)):(2*(k+1) %(dim2)+2),(2*(k+1)+a)%dim2] for k in range(self.dim)])
+    
 class BoundSSH(SSH):
 
     def Hamiltonian(self,**kwargs):
