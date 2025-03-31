@@ -5,6 +5,8 @@ Welcome to my repository on Quantum Random Walks, a project inspired by my scien
 In this repository, I present a selection of my own research results and result that I have recreated and visualized based on findings from various scientific publications. 
 The focus is on exploring the behavior of quantum walks and understanding their theoretical foundations through simulation and analysis.
 
+Results are presented in jupyter notebooks inside demo_ directory.
+
 ## 📚 References & Further Reading
 
 - Mittal, V., Raj, A., Dey, S., & Goyal, S. K. (2021). *Persistence of topological phases in non-Hermitian quantum walks*. **Scientific Reports**, 11(1), 10262.  
