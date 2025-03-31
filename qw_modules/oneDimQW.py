@@ -1,5 +1,5 @@
 import numpy as np
-from operators import op
+from qw_modules.operators import op
 from numpy.linalg import eigvals
 from scipy.linalg import expm
 

@@ -1,5 +1,5 @@
 import numpy as np
-from operators import op
+from qw_modules.operators import op
 from scipy.linalg import expm
 from numpy import pi
 

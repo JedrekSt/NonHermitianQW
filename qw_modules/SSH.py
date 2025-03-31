@@ -2,7 +2,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 from numpy.linalg import eig
 from scipy.linalg import expm
-from operators import op
+from qw_modules.operators import op
 from abc import ABC, abstractmethod
 
 class SSH(ABC):

@@ -1,8 +1,8 @@
 import numpy as np
-from operators import op
+from qw_modules.operators import op
 from numpy.linalg import eigvals
 from scipy.linalg import expm
-from oneDimQW import one_dim_QW
+from qw_modules.oneDimQW import one_dim_QW
 import matplotlib.pyplot as plt
 
 class EMqw(one_dim_QW):

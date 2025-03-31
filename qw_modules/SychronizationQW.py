@@ -4,7 +4,7 @@ import networkx as nx
 from scipy.linalg import expm
 from numpy.linalg import eig
 from IPython.display import clear_output
-from operators import op
+from qw_modules.operators import op
 
 
 class synch_QW:

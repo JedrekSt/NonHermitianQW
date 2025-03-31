@@ -1,6 +1,6 @@
 import numpy as np
-from operators import op
-from oneDimQW import one_dim_QW as odQW
+from qw_modules.operators import op
+from qw_modules.oneDimQW import one_dim_QW as odQW
 from numpy.linalg import eigvals
 from scipy.linalg import expm
 from abc import ABC, abstractmethod

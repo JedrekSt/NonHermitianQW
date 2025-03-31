@@ -2,7 +2,7 @@ import numpy as np
 from numpy.linalg import eig
 from scipy.linalg import expm
 from matplotlib import pyplot as plt
-from operators import op
+from qw_modules.operators import op
 
 class rabbit_wout_def:
     def __init__(self,dim,coin_dict,rabbit_dict,init_state_dict):

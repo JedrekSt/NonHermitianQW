@@ -1,7 +1,7 @@
 import math
 import numpy as np
 from numpy.linalg import eig
-from operators import op
+from qw_modules.operators import op
 
 class BerryPhase:
     def __init__(self):
